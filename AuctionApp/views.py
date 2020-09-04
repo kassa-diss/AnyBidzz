@@ -184,8 +184,8 @@ def bids(request):
     bid = Bids.objects 
     return render(request,'AllAdds.html',{'bid':bid})  
 
-#Contact
 
+#comment
 def contact(request):
     return render(request,'contact.html')
     

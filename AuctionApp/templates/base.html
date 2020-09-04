@@ -1,0 +1,280 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- basic -->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- mobile metas -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<!-- site metas -->
+<title>AnyBibzz-Online auctioning platform </title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="author" content="">
+<!-- site icons -->
+<link rel="icon" href="{% static 'base/images/fevicon/fevicon.png' %}" type="image/gif" />
+<!-- bootstrap css -->
+<link rel="stylesheet" href="{% static 'base/css/bootstrap.min.css' %}" />
+<!-- Site css -->
+<link rel="stylesheet" href="{% static 'base/css/style.css' %}" />
+<!-- responsive css -->
+<link rel="stylesheet" href="{% static 'base/css/responsive.css'%}" />
+<!-- colors css -->
+<link rel="stylesheet" href="{% static 'base/css/colors1.css' %}" />
+<!-- custom css -->
+<link rel="stylesheet" href="{% static 'base/css/custom.css' %}" />
+<!-- wow Animation css -->
+<link rel="stylesheet" href="{% static 'base/css/animate.css'% }" />
+<!-- revolution slider css -->
+<link rel="stylesheet" type="text/css" href="{% static 'base/revolution/css/settings.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'base/revolution/css/layers.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'base/revolution/css/navigation.css' %}" />
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+</head>
+<body id="default_theme" class="it_service">
+<!-- loader -->
+<div class="bg_load"> <img class="loader_animation" src="{% static 'base/images/loaders/loader_1.png' %}" alt="#" /> </div>
+<!-- end loader -->
+<!-- header -->
+<header id="default_header" class="header_style_1">
+  <!-- header top -->
+  <div class="header_top">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="full">
+            <div class="topbar-left">
+              <ul class="list-inline">
+                <li> <span class="topbar-label"><i class="fa  fa-home"></i></span> <span class="topbar-hightlight">5Anybidzz pvt(LTD),Colombo 03</span> </li>
+                <li> <span class="topbar-label"><i class="fa fa-envelope-o"></i></span> <span class="topbar-hightlight"><a href="#">infoAnybidzz@gmail.com</a></span> </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 right_section_header_top">
+          <div class="float-left">
+            <div class="social_icon">
+              <ul class="list-inline">
+                <li><a class="fa fa-facebook" href="https://www.facebook.com/" title="Facebook" target="_blank"></a></li>
+                <li><a class="fa fa-google-plus" href="https://plus.google.com/" title="Google+" target="_blank"></a></li>
+                <li><a class="fa fa-twitter" href="https://twitter.com" title="Twitter" target="_blank"></a></li>
+                <li><a class="fa fa-linkedin" href="https://www.linkedin.com" title="LinkedIn" target="_blank"></a></li>
+                <li><a class="fa fa-instagram" href="https://www.instagram.com" title="Instagram" target="_blank"></a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="float-right">
+            <div class="make_appo"> <a class="btn white_btn" href="#">welcome {{ user.username }}</a> </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end header top -->
+
+  
+  <!-- header bottom -->
+  <div class="header_bottom">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+          <!-- logo start -->
+          <div class="logo"> <a href="{% url 'home' %}"><img src="{% static 'base/images/logos/it_logo.png' %}" alt="logo" /></a> </div>
+          <!-- logo end -->
+        </div>
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+          <!-- menu start -->
+          <div class="menu_side">
+            <div id="navbar_menu">
+              <ul class="first-ul">
+
+                {% if user.is_authenticated %}
+
+                    <li> <a  href="{% url 'home' %}">Home</a></li>
+                    <li> <a href="{% url 'AllAdds' %}">Auctions</a>
+                    <ul>
+                        <li><a href="{% url 'AllAdds' %}">All Auctions</a></li>
+                        <li><a href="{% url 'MyAdds' %}">My Auctions</a></li>
+                        <li><a href="{% url 'PostAdd' %}">Post An Auction</a></li>
+                    </ul>
+                    </li>
+                    <li><a href="{% url 'LocationBased' %}">Location based</a></li>
+                    <li><a href="{% url 'MyProfile' %}">My profile</a></li>
+                    <li><a href="{% url 'prediction' %}">Prediction</a></li>
+                
+                    <li> <a href="{% url 'contact' %}">Contact</a> </li>
+
+                    <li>
+                        <a href="#" onclick="$('#signOutBtn').click()" class="nav-link navbarlinkcolor">Logout</a>
+                        <form style='display: none;' method="POST" action="{% url 'logoutuser' %}">
+                            {% csrf_token %}
+                            <button id="signOutBtn" type="submit" class="btn btn-primary button">Logout</button>
+                        </form>
+                    </li>
+
+                    </div>
+                    <div class="search_icon">
+                    <ul>
+                        <li><a href="#" data-toggle="modal" data-target="#search_bar"><i class="fa fa-search" aria-hidden="true"></i></a></li>
+                    </ul>
+                    </div>
+
+                {% else %}
+
+                    <li><a href="{% url 'loginuser' %}">Login</a></li>
+                    <li><a href="{% url 'signupuser' %}">Sign Up</a></li>
+
+                {% endif %}
+                    
+        
+               
+                
+               
+              </ul>
+           
+          </div>
+          <!-- menu end -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- header bottom end -->
+
+  
+  
+</header>
+<!-- end header -->
+<!-- section -->
+
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+<div class="container">
+  {% block content %}{% endblock %}
+</div>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="search_bar" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><i class="fa fa-close"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-8 col-md-8 col-sm-8 offset-lg-2 offset-md-2 offset-sm-2 col-xs-10 col-xs-offset-1">
+            <div class="navbar-search">
+              <form action="#" method="get" id="search-global-form" class="search-global">
+                <input type="text" placeholder="Type to search" autocomplete="off" name="s" id="search" value="" class="search-global__input">
+                <button class="search-global__btn"><i class="fa fa-search"></i></button>
+                <div class="search-global__note">Begin typing your search above and press return to search.</div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Model search bar -->
+<!-- footer -->
+<footer class="footer_style_2">
+  <div class="container-fuild">
+    <div class="row">
+      
+      <div class="footer_blog">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="main-heading left_text">
+              <h2>Join with us</h2>
+            </div>
+            <p>Best Online Auctioning system base on location You can Sell your products using this platform</p>
+            <ul class="social_icons">
+              <li class="social-icon fb"><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+              <li class="social-icon tw"><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+              <li class="social-icon gp"><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <div class="main-heading left_text">
+              <h2>Contact us</h2>
+            </div>
+            <p>256/281,</br>Muhandiram waththa</br> Kalalpitiya </br>Pasyala </br>T.P :- +94770795050</p>
+            
+          </div>
+          
+          
+          <div class="col-md-4">
+            <div class="main-heading left_text">
+              <h2>Additional links</h2>
+            </div>
+            <ul class="footer-menu">
+              <li><a href="#"><i class="fa fa-angle-right"></i> About us</a></li>
+              <li><a href="#"><i class="fa fa-angle-right"></i> Terms and conditions</a></li>
+              <li><a href="#"><i class="fa fa-angle-right"></i> Privacy policy</a></li>
+              <li><a href="#"><i class="fa fa-angle-right"></i> News</a></li>
+            </ul>
+          </div>
+          
+         
+        </div>
+      </div>
+      <div class="cprt">
+        <p>AnyBidzz.com © Copyrights 2020 Design by Sankalpa</p>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- end footer -->
+<!-- js section -->
+<script src="{% static 'base/js/jquery.min.js' %}"></script>
+<script src="{% static 'base/js/bootstrap.min.js' %}"></script>
+<!-- menu js -->
+<script src="{% static 'base/js/menumaker.js' %}"></script>
+<!-- wow animation -->
+<script src="{% static 'base/js/wow.js' %}"></script>
+<!-- custom js -->
+<script src="{% static 'base/js/custom.js' %}"></script>
+<!-- revolution js files -->
+<script src="{% static 'base/revolution/js/jquery.themepunch.tools.min.js' %}"></script>
+<script src="{% static 'base/revolution/js/jquery.themepunch.revolution.min.js' %}"></script>
+<script src="{% static 'base/revolution/js/extensions/revolution.extension.actions.min.js' %}"></script>
+<script src="{% static 'base/revolution/js/extensions/revolution.extension.carousel.min.js'%}"></script>
+<script src="{% static 'base/revolution/js/extensions/revolution.extension.kenburn.min.js' %}"></script>
+<script src="{% static 'base/revolution/js/extensions/revolution.extension.layeranimation.min.js' %}"></script>
+<script src="{% static 'base/revolution/js/extensions/revolution.extension.migration.min.js' %}"></script>
+<script src="{% static 'base/revolution/js/extensions/revolution.extension.navigation.min.js' %}"></script>
+<script src="{% static 'base/revolution/js/extensions/revolution.extension.parallax.min.js' %}"></script>
+<script src="{% static 'base/revolution/js/extensions/revolution.extension.slideanims.min.js' %}"></script>
+<script src="{% static 'base/revolution/js/extensions/revolution.extension.video.min.js' %}"></script>
+<!-- map js -->
+
+</body>
+</html>

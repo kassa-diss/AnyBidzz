@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="inner_banner" class="section inner_banner_section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="full">
+            <div class="title-holder">
+              <div class="title-holder-cell text-left">
+                <h1 class="page-title">Update Profile</h1>
+                <ol class="breadcrumb">
+                  <li><a href="{% url 'home' %}">Home</a></li>
+                  <li class="active">Update Profile</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <div class="row justify-content-center mt-5">
+
+      
+        <div class="col-md-5">
+
+          <br/>     
+          <br/>      
+          <br/>     
+          <br/>     
+          <br/>
+            {% if error %}
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endif %}
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="Self_description">Self description</label>
+                    <input type="text" name="Self_description" class="form-control" id="Self_description">
+                    <small id="usernameHelp" class="form-text text-muted">Your can add your contact details in here.</small>
+                </div>
+                <div class="form-group">
+                    <label for="Contact">Contact</label>
+                    <input type="text" name="Contact" class="form-control" id="Contact" >
+                   
+                </div>
+
+                <div class="form-group">
+                    <label for="Zipcode">Zipcode</label>
+                    <input type="text" name="Zipcode" class="form-control" id="Zipcode" >
+                   
+                </div>
+
+                <div class="form-group">
+                    <label for="Address">Address</label>
+                    <input type="text" name="Address" class="form-control" id="Address" >
+                   
+                </div>
+
+                <div class="form-group">
+                    <label for="latitude">latitude</label>
+                    <input type="text" name="latitude" class="form-control" id="latitude" >
+                    
+
+                </div>
+
+                <div class="form-group">
+                    <label for="logitude">logitude</label>
+                    <input type="text" name="logitude" class="form-control" id="logitude" >
+                   
+                </div>
+                
+                
+               
+                <button type="submit" class="btn btn-primary button">Update Profile</button>
+            </form>
+            <br/>
+            <br/>
+            
+            <div class="form-group">
+                <p>Click the button to get your coordinates.</p>
+
+                <button onclick="getLocation()" class="btn sqaure_bt">Try It</button>
+                
+                <p id="demo"></p>
+                
+                <script>
+                var x = document.getElementById("demo");
+                
+                function getLocation() {
+                  if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showPosition);
+                  } else { 
+                    x.innerHTML = "Geolocation is not supported by this browser.";
+                  }
+                }
+                
+                function showPosition(position) {
+                  x.innerHTML = "Latitude: " + position.coords.latitude + 
+                  "<br>Longitude: " + position.coords.longitude;
+
+                  var img_url = "https://maps.googleapis.com/maps/api/staticmap?center="+latlon+"&zoom=14&size=400x300&sensor=false&key=AIzaSyDBYO0nlp0_wLbU0F6S0KSX_mwHbfu-1Is";
+                }
+                </script>
+            </div>
+
+
+                <div id="map" style="width:400px;height:400px;"></div>
+                <script>
+                // Note: This example requires that you consent to location sharing when
+                // prompted by your browser. If you see the error "The Geolocation service
+                // failed.", it means you probably did not give permission for the browser to
+                // locate you.
+                var map, infoWindow;
+                function initMap() {
+                    map = new google.maps.Map(document.getElementById('map'), {
+                    center: {lat: -34.397, lng: 150.644},
+                    zoom: 12
+                    });
+                    infoWindow = new google.maps.InfoWindow;
+
+                    // Try HTML5 geolocation.
+                    if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function(position) {
+                        var pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                        };
+
+                        infoWindow.setPosition(pos);
+                        infoWindow.setContent('Location found.');
+                        infoWindow.open(map);
+                        map.setCenter(pos);
+                    }, function() {
+                        handleLocationError(true, infoWindow, map.getCenter());
+                    });
+                    } else {
+                    // Browser doesn't support Geolocation
+                    handleLocationError(false, infoWindow, map.getCenter());
+                    }
+                }
+
+                function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+                    infoWindow.setPosition(pos);
+                    infoWindow.setContent(browserHasGeolocation ?
+                                        'Error: The Geolocation service failed.' :
+                                        'Error: Your browser doesn\'t support geolocation.');
+                    infoWindow.open(map);
+                }
+                </script>
+                <script defer
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBYO0nlp0_wLbU0F6S0KSX_mwHbfu-1Is&callback=initMap">
+                </script>
+
+
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+            
+        </div>
+    </div>
+{% endblock %}

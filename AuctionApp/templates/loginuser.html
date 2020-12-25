@@ -2,6 +2,18 @@
 
 {% block content %}
 <div id="inner_banner" class="section inner_banner_section">
+
+  {% if messages %}
+                      
+      {% for message in messages %}
+                        
+        <div class="alert {{ message.tags}}" role="alert">
+            {{ message }}                       
+        </div>
+      {% endfor %}
+
+  {% endif %}
+
     <div class="container">
       <div class="row">
         <div class="col-md-12">
@@ -19,8 +31,11 @@
         </div>
       </div>
     </div>
-  </div>
-    <div class="row justify-content-center mt-5">
+</div>
+
+
+
+<div class="row justify-content-center mt-5">
         <div class="col-md-5">
             {% if error %}
                </br>
@@ -52,5 +67,5 @@
                 Need an account? <a href="{% url 'signupuser' %}">Sign Up here</a>
             </div>
         </div>
-    </div>
+</div>
 {% endblock %}

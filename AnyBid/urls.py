@@ -18,6 +18,7 @@ from django.urls import path
 from AuctionApp import views
 from django.conf import settings
 from django.conf.urls.static import static
+from django.urls import path,include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -45,6 +46,9 @@ urlpatterns = [
      path('detail/<int:Add_id>', views.detail, name = 'detail'),
      path('detail/<int:Add_id>/Place_bid', views.Place_bid, name = 'Place_bid'),
      path('detail/<int:Add_id>/Delete_add', views.delete_add, name = 'delete_add'),
+     ##
+     path('detail/<int:Add_id>/prediction', views.prediction, name = 'prediction'),
+     path('detail/<int:Add_id>/Acuprediction',views.Acuprediction, name = 'Acuprediction'),
      
      #profile
      path('MyProfile/', views.MyProfile, name = 'MyProfile'),
@@ -58,11 +62,16 @@ urlpatterns = [
 
     path('LocationBased/',views.LocationBased, name = 'LocationBased'),
 
-    #new
+    #contact
 
     path('contact/',views.contact, name = 'contact'),
 
-     path('prediction/',views.prediction, name = 'prediction'),
+    #search
+    path('search/',views.search, name = 'search'),
+
+    
+
+  
 
 
    

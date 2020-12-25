@@ -8,7 +8,7 @@
           <div class="full">
             <div class="title-holder">
               <div class="title-holder-cell text-left">
-                <h1 class="page-title">My Adds</h1>
+                <h1 class="page-title">My Auctions</h1>
                 <ol class="breadcrumb">
                   <li><a href="{% url 'home' %}">Home</a></li>
                   <li class="active">Adds</li>
@@ -21,23 +21,64 @@
     </div>
   </div>
 
+ 
+
 
 
 
 <div class="section padding_layout_1 service_list">
+
+  {% if messages %}
+                      
+        {% for message in messages %}
+                          
+          <div class="alert {{ message.tags}}" role="alert">
+              {{ message }}                       
+          </div>
+        {% endfor %}
+    
+  {% endif %}
+
+
+
+
   <div class="container">
     <div class="row">
 
       {% for Adds in myadd.all %}
         <div class="col-md-4 col-sm-6 col-xs-12">
           <div class="product_list">
-            <div class="product_img"><a href="{% url 'detail' Adds.id %}"><img class="img-fluid" alt="Responsive image" src="{{ Adds.image.url }}" > </a> </div>
+            <div class="product_img"><a href="{% url 'detail' Adds.id %}"><img class="rounded mx-auto d-block" src="{{ Adds.image.url }}" width="375" height="300" > </a> </div>
             <div class="product_detail_btm">
               <div class="center">
                 <h4><a href="{% url 'detail' Adds.id %}">{{ Adds.title }}</a></h4>
               </div>
               <div class="starratin">
-                <div class="center"> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star-o" aria-hidden="true"></i> </div>
+                <div class="center"> 
+                  <p aria-hidden="true">
+
+                    {% if Adds.remaining_Time < 0  %}
+
+                        <p class="text-primary"> Sold OUT </p>
+
+                    {% elif Adds.remaining_Time < 60 %}
+
+                        <p class="text-danger"> Remaning time less than {{ Adds.remaining_Time }} minutes </p>
+
+                    {% elif Adds.remaining_Time < 2880 %}
+
+                      <p class="text-warning"> Remaning time less than 2 days </p>
+
+                    {% else %}
+
+                      <p class="text-success" > Remaning time more than 2 days </p>
+              
+                    {% endif%}
+                    
+                    
+                  </p>
+
+                </div>
               </div>
               <div class="product_price">
                 <p><span class="old_price">Shipping</span> – <span class="new_price">Currents Bid $ {{ Adds.bid_total }}</span></p>

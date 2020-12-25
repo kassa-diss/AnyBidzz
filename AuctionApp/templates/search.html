@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+
+
+
+
+
+<div id="inner_banner" class="section inner_banner_section">
+
+  {% if messages %}
+                      
+      {% for message in messages %}
+                        
+        <div class="alert {{ message.tags}}" role="alert">
+            {{ message }}                       
+        </div>
+      {% endfor %}
+
+  {% endif %}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="full">
+          <div class="title-holder">
+            <div class="title-holder-cell text-left">
+              <h1 class="page-title">Search Results</h1>
+              <ol class="breadcrumb">
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li class="active">Results</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div class="section padding_layout_1 product_list_main">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+        
+          {% for Adds in search_item.all %}
+
+            {% if Adds.has_expired %}
+                {% if Adds.user.username != user.username %}
+          
+                  <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="product_list">
+                      <div class="product_img"><a href="{% url 'detail' Adds.id %}"><img class="rounded mx-auto d-block" src="{{ Adds.image.url }}" width="375" height="300" > </a> </div>
+                      <div class="product_detail_btm">
+                        <div class="center">
+                          <h4><a href="{% url 'detail' Adds.id %}">{{ Adds.title }}</a></h4>
+                        </div>
+                        <div class="starratin">
+                          <div class="center"> 
+                            <p aria-hidden="true">
+
+                              {% if Adds.remaining_Time < 0  %}
+
+                                  <p class="text-primary"> Sold OUT </p>
+
+                              {% elif Adds.remaining_Time < 60 %}
+
+                                  <p class="text-danger"> Remaning time less than {{ Adds.remaining_Time }} minutes </p>
+
+                              {% elif Adds.remaining_Time < 2880 %}
+
+                                <p class="text-warning"> Remaning time less than 2 days </p>
+
+                              {% else %}
+
+                                <p class="text-success" > Remaning time more than 2 days </p>
+                        
+                              {% endif%}
+                              
+                              
+                            </p>
+
+                          </div>
+                        </div>
+                        <div class="product_price">
+                          <p><span class="old_price">Shipping</span> – <span class="new_price">Currents Bid $ {{ Adds.bid_total }}</span></p>
+                          
+                          
+
+        
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+             
+                {% endif %}
+            {% endif %}
+         {% endfor %}
+        </div>
+      </div> 
+      
+    </div>
+  </div>
+</div>
+
+
+
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+{% endblock %}

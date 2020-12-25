@@ -4,6 +4,7 @@ from datetime import timedelta, datetime, date, timezone
 import math
 from math import ceil
 
+# Auction model
 class Adds(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField(blank=True)
@@ -19,6 +20,7 @@ class Adds(models.Model):
     def summary(self):
         return self.description[:100]
 
+# Add expire function
     def has_expired(self):
         now = datetime.now(timezone.utc)
         expiration = self.Due_date
@@ -27,6 +29,7 @@ class Adds(models.Model):
         else:
             return False
 
+#calculate auctions' remaining time 
     def remaining_Time(self):
         
             now = datetime.now(timezone.utc)
@@ -40,7 +43,7 @@ class Adds(models.Model):
     
 
 
-
+#user profile model
 class UserProfile(models.Model):
     user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
     Self_description = models.CharField(max_length=1000)
@@ -54,36 +57,23 @@ class UserProfile(models.Model):
     def __str__(self):
         return str(self.user)
 
-    def distance_check(self):  
+    def lat(self):
+        lat = float(self.latitiude)
 
-        #user = UserProfile.objects.filter(user=us_id)
-        #lat22 = user.userprofile.latitiude
-        #lon22 = user.userprofile.logitude
-
-        R = 6373.0
-        lat1 = math.radians(float(self.latitiude))
-        lon1 = math.radians(float(self.logitude))
-        lat2 = math.radians(52.406374)
-        lon2 = math.radians(16.9251681)
-
-        dlon = lon2 - lon1
-
-        dlat = lat2 - lat1
-
-        a = math.sin(dlat / 2)**2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlon / 2)**2
-
-        c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
-        distance = R * c
-
-        return int(distance)
+        return float(lat)
     
-    
-    
-    
+    def log(self):
+        log = float(self.logitude)
+
+        return float(log)
+
+
+#bid Model 
 class Bids(models.Model):
     Bid = models.IntegerField(default=0)
     Add_ID =models.TextField(blank=True)
     Title =models.TextField(blank=True)
+    Bid_date = models.DateTimeField(default = datetime.now()) 
     user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -93,6 +83,14 @@ class Bids(models.Model):
        highest_bid = Bids.objects.filter(Add_ID=self).order_by('-Bid').first()
        self.winner = highest_bid.user
        return self.winner
+
+    def predict_bid(self):
+
+        pre_adds = Bids.objects.filter(Add_ID=self)
+        bid = pre_adds.Bid
+        return bid
+
+
     
 
 
